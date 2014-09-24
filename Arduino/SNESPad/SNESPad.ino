@@ -17,9 +17,6 @@ Controller Pad2;
 
 void setup(){
   pinMode(LED, OUTPUT);
-  pinMode(P1_LATCH, OUTPUT);
-  pinMode(P1_CLOCK, OUTPUT);
-  pinMode(P1_DATA, INPUT);
   
   Pad1.attach(P1_LATCH, P1_CLOCK, P1_DATA);
   Pad2.attach(P2_LATCH, P2_CLOCK, P2_DATA);

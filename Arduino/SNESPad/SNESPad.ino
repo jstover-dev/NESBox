@@ -1,5 +1,5 @@
 /*
-  NES / SNES Controller Handler for ATMega328P
+  NES / SNES Controller Handler for Arduino's with ATMega328P
   Author: Josh Stover
 */
 #include "Controller.h"
@@ -36,6 +36,7 @@ ISR(TIMER1_COMPA_vect) {
   Pad1.poll();
 }
 
+// Blink your LED if you're alive
 void loop(){
   digitalWrite(LED, HIGH);
   delayMicroseconds(30);

@@ -1,8 +1,4 @@
-/*
-  NES / SNES Controller Handler for Arduino's with ATMega328P
-  Author: Josh Stover
-*/
-#include "Controller.h"
+#include <SNESPad.h>
 
 #define LED   13
 #define P1_LATCH 6
@@ -12,8 +8,8 @@
 #define P2_CLOCK 10
 #define P2_DATA  11
 
-Controller Pad1;
-Controller Pad2;
+snespad::SNESPad Pad1;
+snespad::SNESPad Pad2;
 
 void setup(){
   pinMode(LED, OUTPUT);
@@ -34,6 +30,7 @@ void setup(){
 // 60Hz Timer ISR
 ISR(TIMER1_COMPA_vect) {
   Pad1.poll();
+  Pad2.poll();
 }
 
 // Blink your LED if you're alive

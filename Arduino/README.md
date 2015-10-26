@@ -1,1 +1,3 @@
-SNESPad for the Arduino series, only tested on an ATMega328P
+# SNESPad
+
+Helper library for interfacing between NES/SNES controller pads and Arduino series boards

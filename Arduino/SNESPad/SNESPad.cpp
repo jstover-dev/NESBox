@@ -4,7 +4,7 @@
  *  SNESPad.h
  *
  *  C++ Class for reading the state of a SNES controller.
- *  This class is nothing but a wrapper around the snespad C functions.
+ *  This class is nothing but a wrapper around the sp_controller C functions.
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -29,26 +29,29 @@
 #ifndef SNESPad_h
 #define SNESPad_h
 
+#include <SNESPad.h>
 #include "sp_controller.h"
 
 namespace snespad {
 
-    class SNESPad : private sp_controller {
+        void SNESPad::attach(int latch_pin, int clock_pin, int data_pin) {
+            sp_controller_attach(this, latch_pin, clock_pin, data_pin);
+        }
 
-    public:
-		// create a new instance attached to the given Arduino pins
-        SNESPad(int latch_pin, int clock_pin, int data_pin);
-        
-		// read the current button state from the controller
-		void poll();
-		
-		// get the current button state
-        int getData();
+        void SNESPad::poll() {
+			sp_controller_poll(this);
+		}
 
-        // copy assignment from sp_controller
-        SNESPad& operator=(const sp_controller& c);
-		
-		~SNESPad();
+        int SNESPad::getData() {
+			return sp_controller_data(this);
+		}
+
+        SNESPad& SNESPad::operator=(const sp_controller& c) {
+			sp_controller_attach(this, c.pin_latch, c.pin_clock, c.pin_data);
+			data = c.data;
+            return *this;
+        }
+
     };
 }
 

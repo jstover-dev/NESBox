@@ -17,11 +17,12 @@ void setup(){
   Pad1.attach(P1_LATCH, P1_CLOCK, P1_DATA);
   Pad2.attach(P2_LATCH, P2_CLOCK, P2_DATA);
   
+  // 60Hz (16.66ms) Timer1
   noInterrupts();
   TCNT1 = 0;                // reset the timer counter
   TCCR1A = 0x00;            // Normal mode, whatever that means
-  TCCR1B = 0x02;            // 16MHz with prescaler, .5us increments
-  OCR1A = 33333;            // 16.66 ms
+  TCCR1B = 0x02;            // 16MHz with /8 prescaler, .5us increments
+  OCR1A = 33333;            // 16.66 ms / 0.5us == 3333
   TCCR1B |= (1 << WGM12);   // CTC mode
   TIMSK1 |= (1 << OCIE1A);  // enable timer compare interrupt
   interrupts();             // enable all interrupts

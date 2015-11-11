@@ -1,7 +1,5 @@
 /*
- *  Controller class for reading data from NES / SNES controllers
- *
- *  snespad_controller.h
+ *  snespad_controller.c
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -23,38 +21,11 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  *  IN THE SOFTWARE.
  */
-#ifndef sp_controller_h
-#define sp_controller_h
-
-#ifdef __cplusplus
-extern "C"{
-#endif
-
 #include <stdlib.h>
 #include <stdint.h>
 #include <Arduino.h>
 
-// Number of clock cycles to send to the controller, 8 for NES, 16 for SNES
-#define BUTTON_COUNT 8
-
-typedef struct sp_controller {
-    uint8_t pin_latch;
-    uint8_t pin_clock;
-    uint8_t pin_data;
-    uint8_t data;
-} sp_controller;
-
-typedef enum {
-    UP     = 0x01,
-    DOWN   = 0x02,
-    LEFT   = 0x04,
-    RIGHT  = 0x08,
-    A      = 0x10,
-    B      = 0x20,
-    START  = 0x40,
-    SELECT = 0x80
-} sp_button ;
-
+#include "sp_controller.h"
 
 sp_controller *sp_controller_create() {
     sp_controller *c = (sp_controller*) malloc(sizeof(sp_controller));
@@ -91,7 +62,6 @@ void sp_controller_poll(sp_controller *p) {
     }
 }
 
-
 uint8_t sp_controller_readbutton(sp_controller *p, sp_button button_type) {
     return (p->data & button_type)==button_type;
 }
@@ -99,9 +69,3 @@ uint8_t sp_controller_readbutton(sp_controller *p, sp_button button_type) {
 uint8_t sp_controller_data(sp_controller *p) {
     return p->data;
 }
-
-#ifdef __cplusplus
-} // extern "C"
-#endif
-
-#endif // snespad_controller_h

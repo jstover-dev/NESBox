@@ -29,6 +29,7 @@
 #ifndef SNESPad_h
 #define SNESPad_h
 
+#include <Arduino.h>
 #include "sp_controller.h"
 
 class SNESPad : private sp_controller {

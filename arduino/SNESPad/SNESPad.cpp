@@ -1,7 +1,10 @@
 /*
  *  Controller class for reading data from NES / SNES controllers
  *
- *  SNESPad.cpp
+ *  SNESPad.h
+ *
+ *  C++ Class for reading the state of a SNES controller.
+ *  This class is nothing but a wrapper around the sp_controller C functions.
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -23,38 +26,33 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  *  IN THE SOFTWARE.
  */
-#define DEBUG
+#ifndef SNESPad_h
+#define SNESPad_h
 
-#ifdef DEBUG
-    #include <Arduino.h>
-    #include <SerialDebug.h>
-#endif
-
-#include "SNESPad.h"
+#include <SNESPad.h>
 #include "sp_controller.h"
 
+namespace snespad {
 
-SNESPad::SNESPad(){
-    SNESPad::count++;
-    controller_id = SNESPad::count;
+        void SNESPad::attach(int latch_pin, int clock_pin, int data_pin) {
+            sp_controller_attach(this, latch_pin, clock_pin, data_pin);
+        }
+
+        void SNESPad::poll() {
+			sp_controller_poll(this);
+		}
+
+        int SNESPad::getData() {
+			return sp_controller_data(this);
+		}
+
+        SNESPad& SNESPad::operator=(const sp_controller& c) {
+			sp_controller_attach(this, c.pin_latch, c.pin_clock, c.pin_data);
+			data = c.data;
+            return *this;
+        }
+
+    };
 }
 
-SNESPad::~SNESPad(){
-    sp_controller_destroy(this);
-}
-
-void SNESPad::attach(int latch_pin, int clock_pin, int data_pin) {
-    sp_controller_attach(this, latch_pin, clock_pin, data_pin);
-        _Debug
-        _Debug_print("SNESPad: ") _Debug_printlnf(this->getID(), HEX)
-}
-
-void SNESPad::poll() {
-    sp_controller_poll(this);
-}
-
-int SNESPad::getData() { return sp_controller_data(this); }
-
-uint8_t SNESPad::getID() { return this->controller_id; }
-
-uint8_t SNESPad::count = 0;
+ #endif

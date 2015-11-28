@@ -1,15 +1,18 @@
 # SNESPad
 NES / SNES gamepad handler for microcontrollers
 
-## Supported MCU's
+### Supported MCU's
 * Arduino Pro Mini (ATMega328P)
 * TI MSP430 Series
 
-## Notes
-The MSP430 folder contains a Code Composer Studio project. Currently, this project targets the MSP430G2553 specifically. This can be changed by including the desired header in main.c  
 
-    #include "msp430g2553.h"
-
-
-
-
+## NES Data
+***
+Controller Port Pins  
+![NES_Controller.png](https://bitbucket.org/repo/XGkzXn/images/3787885753-NES_Controller.png)
+***
+Controller Timing
+![timing.png](https://bitbucket.org/repo/XGkzXn/images/1481977841-timing.png)
+Power / Reset Board  
+![Power/Reset](https://bitbucket.org/jmstover/snespad/downloads/nes-power_reset_button.svg)
+***

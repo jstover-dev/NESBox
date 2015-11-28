@@ -11,8 +11,9 @@ NES / SNES gamepad handler for microcontrollers
 Controller Port Pins  
 ![NES_Controller.png](https://bitbucket.org/repo/XGkzXn/images/3787885753-NES_Controller.png)
 ***
-Controller Timing
+Controller Timing  
 ![timing.png](https://bitbucket.org/repo/XGkzXn/images/1481977841-timing.png)
+***
 Power / Reset Board  
 ![Power/Reset](https://bitbucket.org/jmstover/snespad/downloads/nes-power_reset_button.svg)
 ***

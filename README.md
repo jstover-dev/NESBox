@@ -9,7 +9,7 @@ NES / SNES gamepad handler for microcontrollers
 ## NES Data
 ***
 Controller Port Pins  
-![NES_Controller.png](https://bitbucket.org/repo/XGkzXn/images/3787885753-NES_Controller.png)
+![NES_Controller.png](https://bitbucket.org/jmstover/snespad/downloads/nes-controller_port.png)
 ***
 Controller Timing  
 ![timing.png](https://bitbucket.org/repo/XGkzXn/images/1481977841-timing.png)

@@ -2,8 +2,9 @@
 NES / SNES gamepad handler for microcontrollers
 
 ### Supported MCU's
-* Arduino Pro Mini (ATMega328P)
-* TI MSP430 Series
+* Arduino Series
+* AVR Series (WIP)
+* TI MSP430 Series (WIP)
 
 
 ## NES Data

@@ -1,0 +1,11 @@
+SNESPad          KEYWORD1
+attach           KEYWORD2
+poll             KEYWORD2
+getData          KEYWORD2
+sp_controller             KEYWORD1
+sp_controller_create      KEYWORD2
+sp_controller_destroy     KEYWORD2
+sp_controller_attach      KEYWORD2
+sp_controller_poll        KEYWORD2
+sp_controller_readbutton  KEYWORD2
+sp_controller_data        KEYWORD2

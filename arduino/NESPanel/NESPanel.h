@@ -1,10 +1,7 @@
 /*
- *  Controller class for reading data from NES / SNES controllers
+ *  NES Power/Reset/LED board interface
  *
- *  SNESPad.h
- *
- *  C++ Class for reading the state of a SNES controller.
- *  This class is nothing but a wrapper around the snespad C functions.
+ *  NESPanel.h
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -26,39 +23,31 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  *  IN THE SOFTWARE.
  */
-#ifndef SNESPad_h
-#define SNESPad_h
+#ifndef _NESPanel_h
+#define _NESPanel_h
 
 #include <stdint.h>
 
-namespace Controller {
-	enum Type { Unknown=0, NES=8, SNES=16 };
-	enum Button { A, B, X, Y, Select, Start, Up, Down, Left, Right };
-}
 
-class SNESPad {
+class NESPanel {
 
 private:
-    static uint8_t count;
-	Controller::Type controller;
 	struct Pins {
-		uint8_t latch;
-		uint8_t clock;
-		uint8_t data;
+		uint8_t led;
+		uint8_t power;
+		uint8_t reset;
 	};
 	Pins pins;
-	uint8_t data;
-	uint8_t id;
-	char *string;
+	
+	bool led_on;
 
 public:
-    SNESPad();
-	static uint8_t getControllerCount();
-    void attach(Controller::Type, int, int, int);
-    void poll();
-    int getData();
-    uint8_t getID();
-	char *toString();
+	NESPanel();
+	void attach(int, int, int);
+	void setLEDState(bool);
+	bool powerButtonPushed();
+	bool resetButtonPushed(bool = false);
 };
 
-#endif
+
+#endif // _NESPanel_h

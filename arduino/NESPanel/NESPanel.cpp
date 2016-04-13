@@ -1,10 +1,7 @@
 /*
- *  Controller class for reading data from NES / SNES controllers
+ *  NES Power/Reset/LED board interface
  *
- *  SNESPad.h
- *
- *  C++ Class for reading the state of a SNES controller.
- *  This class is nothing but a wrapper around the snespad C functions.
+ *  NESPanel.cpp
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -26,39 +23,40 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  *  IN THE SOFTWARE.
  */
-#ifndef SNESPad_h
-#define SNESPad_h
+#include <Arduino.h>
+#include "NESPanel.h"
 
-#include <stdint.h>
+NESPanel::NESPanel(){}
 
-namespace Controller {
-	enum Type { Unknown=0, NES=8, SNES=16 };
-	enum Button { A, B, X, Y, Select, Start, Up, Down, Left, Right };
+void NESPanel::attach(int led, int power, int reset){
+	pins.led = led;
+	pins.power = power;
+	pins.reset = reset;
+	pinMode(led, OUTPUT);
+	pinMode(power, INPUT);
+	pinMode(reset, INPUT);
+	digitalWrite(led, LOW);
+	led_on = false;
 }
 
-class SNESPad {
+void NESPanel::setLEDState(bool state){
+	digitalWrite(pins.led, state);
+	led_on = state;
+}
 
-private:
-    static uint8_t count;
-	Controller::Type controller;
-	struct Pins {
-		uint8_t latch;
-		uint8_t clock;
-		uint8_t data;
-	};
-	Pins pins;
-	uint8_t data;
-	uint8_t id;
-	char *string;
+bool NESPanel::powerButtonPushed(){
+	return digitalRead(pins.power);
+}
 
-public:
-    SNESPad();
-	static uint8_t getControllerCount();
-    void attach(Controller::Type, int, int, int);
-    void poll();
-    int getData();
-    uint8_t getID();
-	char *toString();
-};
+bool NESPanel::resetButtonPushed(bool force){
+	if (!force){
+		return digitalRead(pins.reset);
 
-#endif
+	} else if (led_on) {
+		return digitalRead(pins.reset);
+	}
+	digitalWrite(pins.led, HIGH);
+	bool r = digitalRead(pins.reset);
+	digitalWrite(pins.led, LOW);
+	return r;
+}

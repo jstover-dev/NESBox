@@ -4,7 +4,6 @@
  *  SNESPad.h
  *
  *  C++ Class for reading the state of a SNES controller.
- *  This class is nothing but a wrapper around the sp_controller C functions.
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -26,33 +25,71 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  *  IN THE SOFTWARE.
  */
-#ifndef SNESPad_h
-#define SNESPad_h
 
+#include <Arduino.h>
 #include <SNESPad.h>
-#include "sp_controller.h"
 
-namespace snespad {
+uint8_t SNESPad::count = 0;
 
-        void SNESPad::attach(int latch_pin, int clock_pin, int data_pin) {
-            sp_controller_attach(this, latch_pin, clock_pin, data_pin);
-        }
-
-        void SNESPad::poll() {
-			sp_controller_poll(this);
-		}
-
-        int SNESPad::getData() {
-			return sp_controller_data(this);
-		}
-
-        SNESPad& SNESPad::operator=(const sp_controller& c) {
-			sp_controller_attach(this, c.pin_latch, c.pin_clock, c.pin_data);
-			data = c.data;
-            return *this;
-        }
-
-    };
+SNESPad::SNESPad(){
+	SNESPad::count++;
+	id = SNESPad::count;
 }
 
- #endif
+void SNESPad::attach(Controller::Type type, int latch_pin, int clock_pin, int data_pin) {
+	controller = type;
+	string[static_cast<uint8_t>(controller)+1];
+	pins.latch = latch_pin;
+	pins.clock = clock_pin;
+	pins.data = data_pin;
+    pinMode(pins.latch, OUTPUT);
+    pinMode(pins.clock, OUTPUT);
+    pinMode(pins.data, INPUT);
+
+	digitalWrite(pins.data, HIGH); // pullup
+	digitalWrite(pins.latch, LOW);
+	digitalWrite(pins.clock, LOW);
+}
+
+void SNESPad::poll() {
+	// LATCH
+    digitalWrite(pins.latch, HIGH);
+    delayMicroseconds(6);
+    digitalWrite(pins.latch, LOW);
+	delayMicroseconds(1);
+
+    // CLK line goes high and DATA line is read
+    uint8_t clk_cycle;
+	uint8_t buttons = static_cast<uint8_t>(controller);
+    for(clk_cycle=0; clk_cycle<buttons; clk_cycle++) {
+        data = data << 1;
+        data |= (digitalRead(pins.data)^1);
+        digitalWrite(pins.clock, HIGH);
+        delayMicroseconds(7);
+        digitalWrite(pins.clock, LOW);
+        delayMicroseconds(2);
+    }
+}
+
+int SNESPad::getData() {
+	return data;
+}
+
+uint8_t SNESPad::getID(){
+	return id;
+}
+
+uint8_t SNESPad::getControllerCount(){
+	return SNESPad::count;
+}
+
+char* SNESPad::toString(){
+	char *p = string;
+	for(uint8_t btn=0; btn<16; btn++){
+		*p = 65+btn;
+		p++;
+	}
+	*p = NULL;
+	return string;
+}
+

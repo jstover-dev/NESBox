@@ -1,5 +1,5 @@
 /*
- *  Controller class for reading data from NES / SNES controllers
+ *  PadType class for reading data from NES / SNES controllers
  *
  *  SNESPad.h
  *
@@ -36,7 +36,7 @@ SNESPad::SNESPad(){
 	id = SNESPad::count;
 }
 
-void SNESPad::attach(Controller::Type type, int latch_pin, int clock_pin, int data_pin) {
+void SNESPad::attach(NESBox::PadType type, int latch_pin, int clock_pin, int data_pin) {
 	controller = type;
 	string[static_cast<uint8_t>(controller)+1];
 	pins.latch = latch_pin;
@@ -45,7 +45,6 @@ void SNESPad::attach(Controller::Type type, int latch_pin, int clock_pin, int da
     pinMode(pins.latch, OUTPUT);
     pinMode(pins.clock, OUTPUT);
     pinMode(pins.data, INPUT);
-
 	digitalWrite(pins.data, HIGH); // pullup
 	digitalWrite(pins.latch, LOW);
 	digitalWrite(pins.clock, LOW);
@@ -79,7 +78,7 @@ uint8_t SNESPad::getID(){
 	return id;
 }
 
-uint8_t SNESPad::getControllerCount(){
+uint8_t SNESPad::getPadTypeCount(){
 	return SNESPad::count;
 }
 

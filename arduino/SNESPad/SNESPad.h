@@ -1,10 +1,9 @@
 /*
- *  Controller class for reading data from NES / SNES controllers
+ *  PadType class for reading data from NES / SNES controllers
  *
  *  SNESPad.h
  *
- *  C++ Class for reading the state of a SNES controller.
- *  This class is nothing but a wrapper around the snespad C functions.
+ *  Arduino Class for reading the state of a SNES controller.
  *
  *  Copyright (c) 2015 Josh Stover
  *
@@ -31,16 +30,15 @@
 
 #include <stdint.h>
 
-namespace Controller {
-	enum Type { Unknown=0, NES=8, SNES=16 };
-	enum Button { A, B, X, Y, Select, Start, Up, Down, Left, Right };
+namespace NESBox {
+	enum PadType { Unknown=0, NES=8, SNES=16 };
 }
 
 class SNESPad {
 
 private:
     static uint8_t count;
-	Controller::Type controller;
+	NESBox::PadType controller;
 	struct Pins {
 		uint8_t latch;
 		uint8_t clock;
@@ -53,8 +51,8 @@ private:
 
 public:
     SNESPad();
-	static uint8_t getControllerCount();
-    void attach(Controller::Type, int, int, int);
+	static uint8_t getPadTypeCount();
+    void attach(NESBox::PadType, int, int, int);
     void poll();
     int getData();
     uint8_t getID();

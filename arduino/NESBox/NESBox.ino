@@ -54,9 +54,9 @@ void setupFrontPanel(){
   Panel.setLEDState(true);
 }
 
-void setupControllers(){
-    Pad1.attach(Controller::NES, P1_LATCH, P1_PULSE, P1_DATA);
-    Pad2.attach(Controller::NES, P2_LATCH, P2_PULSE, P2_DATA);
+void setupPads(){
+    Pad1.attach(NESBox::NES, P1_LATCH, P1_PULSE, P1_DATA);
+    Pad2.attach(NESBox::NES, P2_LATCH, P2_PULSE, P2_DATA);
 }
 
 /* ==================== Main ==================== */
@@ -64,7 +64,7 @@ void setupControllers(){
 void setup() {
     Serial.begin(9600);
     setupFrontPanel();
-    setupControllers();
+    setupPads();
     setupTimer();
 }
 
@@ -107,7 +107,7 @@ void loop(){
 
 /* ==================== Interrupts ==================== */
 
-// Poll the Controllers at 60Hz
+// Poll the Pads at 60Hz
 ISR(TIMER1_COMPA_vect) {
     noInterrupts();
     Pad1.poll();

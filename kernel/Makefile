@@ -1,9 +1,8 @@
-obj-m += nesdev.o
+obj-m += nesbox.o
 
-#ccflags-y += -Wall -Werror
+#ccflags-y += -Wall -Werror -fdiagnostics-color
 
 KDIR := /lib/modules/$(shell uname -r)/build
-PWD  := $(shell pwd)
 
 build:
 	$(MAKE) -C $(KDIR) M=$(PWD) modules

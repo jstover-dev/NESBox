@@ -3,3 +3,10 @@
 .launches
 Debug
 targetConfigs
+
+*.pyc
+
+*.ko
+kernel/*.cmd
+kernel/modules.order
+kernel/Module.symvers

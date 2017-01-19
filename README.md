@@ -7,7 +7,7 @@ NES / SNES gamepad handler for microcontrollers
 * TI MSP430 Series (WIP)
 
 
-## NES Data
+## NES Info
 ***
 Controller Port Pins  
 ![NES_Controller.png](https://bitbucket.org/jmstover/nesbox/downloads/nes-controller_port.png)
@@ -18,3 +18,5 @@ Controller Timing
 Power / Reset Board  
 ![Power/Reset](https://bitbucket.org/jmstover/nesbox/downloads/nes-power_reset_button.svg)
 ***
+Arduino Micro NESBox Wiring
+![ArduinoMicro](https://bitbucket.org/jmstover/nesbox/downloads/nes-arduino_board_micro.svg)

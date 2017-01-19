@@ -18,5 +18,6 @@ Controller Timing
 Power / Reset Board  
 ![Power/Reset](https://bitbucket.org/jmstover/nesbox/downloads/nes-power_reset_button.svg)
 ***
-Arduino Micro NESBox Wiring
+Arduino Micro NESBox Wiring  
 ![ArduinoMicro](https://bitbucket.org/jmstover/nesbox/downloads/nes-arduino_board_micro.svg)
+***

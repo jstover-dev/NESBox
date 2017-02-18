@@ -10,3 +10,9 @@ targetConfigs
 kernel/*.cmd
 kernel/modules.order
 kernel/Module.symvers
+
+# macos
+.DS_Store
+
+# temp files
+*.swp

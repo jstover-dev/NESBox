@@ -10,14 +10,14 @@ NES / SNES gamepad handler for microcontrollers
 ## NES Info
 ***
 Controller Port Pins  
-![NES_Controller.png](https://bitbucket.org/jmstover/nesbox/downloads/nes-controller_port.png)
+![NES_Controller.png](images/nes-controller_port.png)
 ***
 Controller Timing  
-![timing.png](https://bitbucket.org/repo/XGkzXn/images/1481977841-timing.png)
+![timing.png](images/nes-controller_timing.png)
 ***
 Power / Reset Board  
-![Power/Reset](https://bitbucket.org/jmstover/nesbox/downloads/nes-power_reset_button.svg)
+![Power/Reset](images/nes-power_reset_button.svg)
 ***
 Arduino Micro NESBox Wiring  
-![ArduinoMicro](https://bitbucket.org/jmstover/nesbox/downloads/nes-arduino_board_micro.svg)
+![ArduinoMicro](images//nes-arduino_board_micro.svg)
 ***
